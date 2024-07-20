@@ -1,4 +1,4 @@
-Things I'm using here: 
+Things I used here: 
 
 Please install pyhton and pip to get started
 
