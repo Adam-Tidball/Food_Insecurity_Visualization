@@ -9,7 +9,7 @@ Setup:
     `pip install pytailwindcss`
 
 * D3
-    This is just pulled  
+    This is just pulled by the script in /templates/index.html currently
 
 Commands you'll find useful: 
 
