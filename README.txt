@@ -11,9 +11,6 @@ Setup:
 * D3
     This is just pulled  
 
-* HTMX?? (hopefully not, but if we )
-
-
 Commands you'll find useful: 
 
     Tailwind CSS watcher (start this once and then leave it runnig while you dev)
