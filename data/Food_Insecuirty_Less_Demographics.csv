@@ -1,0 +1,34 @@
+﻿"Food insecurity by selected demographic characteristics 1 2 3"
+"Frequency: Annual"
+"Table: 13-10-0835-01"
+"Release date: 2024-04-26"
+"Geography: Canada, Geographical region of Canada, Province or territory"
+""
+""
+
+"Geography","Canada 3",,,,,,,,,,"Newfoundland and Labrador",,,,,,,,,,"Prince Edward Island",,,,,,,,,,"Nova Scotia",,,,,,,,,,"New Brunswick",,,,,,,,,,"Quebec",,,,,,,,,,"Ontario",,,,,,,,,,"Manitoba",,,,,,,,,,"Saskatchewan",,,,,,,,,,"Alberta",,,,,,,,,,"British Columbia",,,,,,,,,
+"Household food security status","Food insecure 4",,,,,"Food insecure, moderate or severe",,,,,"Food insecure 4",,,,,"Food insecure, moderate or severe",,,,,"Food insecure 4",,,,,"Food insecure, moderate or severe",,,,,"Food insecure 4",,,,,"Food insecure, moderate or severe",,,,,"Food insecure 4",,,,,"Food insecure, moderate or severe",,,,,"Food insecure 4",,,,,"Food insecure, moderate or severe",,,,,"Food insecure 4",,,,,"Food insecure, moderate or severe",,,,,"Food insecure 4",,,,,"Food insecure, moderate or severe",,,,,"Food insecure 4",,,,,"Food insecure, moderate or severe",,,,,"Food insecure 4",,,,,"Food insecure, moderate or severe",,,,,"Food insecure 4",,,,,"Food insecure, moderate or severe",,,,
+"Statistics","Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,,"Percentage of persons",,,,
+"Demographic characteristics","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022","2018","2019","2020","2021","2022"
+,"Percent",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+"All persons","16.8B","15.9B","15.7B","18.4A","22.9A","11.6B","10.8B","11.2B","12.9B","16.9A","18.9C","17.7D","17.5C","22.5C","26.0C","12.0D","12.0D","12.6D","15.1D","19.7C","17.3C","18.6D","16.5D","23.6D","28.6D","12.3D","13.2D","10.7D","15.1D","21.6D","20.9C","18.0C","17.7C","22.0C","28.9C","15.5C","12.3D","13.1C","16.9C","22.7C","17.8C","15.7C","18.4C","22.7C","25.6C","12.7C","11.0D","12.4C","17.4C","19.3C","14.4C","10.9C","12.7C","14.7C","15.7C","9.2C","7.1D","8.6C","8.9C","10.8C","17.0B","17.3C","16.1B","19.2B","24.5B","11.8C","11.5C","11.5C","13.9C","18.7B","19.1C","18.2C","17.1C","19.6C","26.8C","13.6C","12.5D","12.0C","13.7C","19.5C","17.2C","17.7C","18.5C","20.3C","28.0C","11.7C","12.1D","12.9C","14.3C","20.2C","19.2C","18.5C","19.7C","21.8C","27.4C","13.9C","13.1D","15.1C","16.0C","20.4C","16.2C","16.2C","14.6C","16.8C","21.8C","11.7C","11.9C","10.0C","11.6C","15.6C"
+
+Symbol legend:
+A, data quality: excellent
+B, data quality: very good
+C, data quality: good
+D, data quality: acceptable
+
+
+
+
+Footnotes:
+1,"Source: Canadian Income Survey, Centre for Income and Socioeconomic Well-being Statistics, Statistics Canada"
+2,"Data quality indicators are based on the coefficient of variation (CV) and number of observations. Quality indicators indicate the following: A - Excellent (CV between 0% and 2%); B - Very good (CV between 2% and 4%); C - Good (CV between 4% and 8%); D - Acceptable (CV between 8% and 16%); E - Use with caution (CV between 16% and 33.3%)."
+3,"Estimates for Canada do not include the territories."
+4,"Includes marginal, moderate and severe food insecurity."
+
+
+
+"How to cite: Statistics Canada. Table 13-10-0835-01  Food insecurity by selected demographic characteristics"
+https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1310083501
