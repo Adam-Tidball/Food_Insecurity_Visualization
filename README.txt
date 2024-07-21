@@ -1,10 +1,12 @@
 Things I used here: 
 
 Please install pyhton and pip to get started
+    `pip install -r requirements.txt` SHOULD cover everything, but if it doesn't, follow the setup below
 
-Setup:
+Manual Setup:
 * Flask ( Just a glorified way to serve html most likely, could give us some extra functionality if desperate)
     `pip install flask`
+    `pip install flask-assets`
 * Tailwind (It makes styling webpages a bit easier to do quickly)
     `pip install pytailwindcss`
 
