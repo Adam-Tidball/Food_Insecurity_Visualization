@@ -17,7 +17,7 @@ def serve_static(filename):
 
 @app.route("/") 
 def index(): 
-    return render_template('/index.html')
+    return render_template('/index.html', var=5)
 
 
 # run the application 
