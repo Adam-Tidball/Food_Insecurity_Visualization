@@ -8,23 +8,25 @@ let parsedData = my_DATA.map( d => ({
     Cpi: d.Cpi
 }));
 
+const dataAt = function dataAt(year){
+    return parsedData.filter( d => d.Year == year);
+}
+
 const margin = ({
     top: 20,
     right: 0,
     bottom: 10,
-    left: 30
+    left: 50
 });
 
 const height = 250
-const width = 600 
+const width = 800 
 
-
-let rScale = d3.scaleLinear().domain([4, 9]).range([1, 9])
+let year = 2018
+let rScale = d3.scaleLinear().domain([0, 100]).range([0, 150])
 let xScale = d3.scaleLinear().domain([125, 155]).range([margin.left, width - margin.right])
 let yScale = d3.scaleLinear().domain([5, 30]).range([height - margin.bottom, margin.top])
 
-
-console.log(parsedData);
 
 let circle_chart = d3.select("#health_circle_chart")
     .classed("border", true)
@@ -43,15 +45,34 @@ const yAxis = circle_chart.append('g')
 ;
 
 
-let circle_marks = d3.select("#health_circle_chart")
+let circles = d3.select("#health_circle_chart")
     .selectAll("#circle_marks")
-    .data(parsedData)
+    .data(dataAt(year))
     .enter()
     .append("circle")
-    .classed("circle_marks", true)
-    .attr("id", "circle_marks")
-    .attr("year_prov", d=> d.Year + "_" + d.Geography)
-    .attr("r", d => rScale(d.Diabetes))
-    .attr("cx", d => xScale(d.Cpi))
-    .attr("cy", d => (yScale(d.FoodInsecure)))
+        .sort((a,b) => {d3.descending(a.Geography, b.Geography)})
+        .classed("circle_marks", true)
+        .attr("id", "circle_marks")
+        .attr("year_prov", d=> d.Year + "_" + d.Geography)
+        .attr("r", d => rScale(d.Diabetes))
+        .attr("cx", d => xScale(d.Cpi))
+        .attr("cy", d => (yScale(d.FoodInsecure)))
 ;
+
+
+const updateCircles = function updateCircles(){
+    year = year + 1;
+    if (year > 2022){
+        year = 2018
+    }
+    circles.data(dataAt(year))
+    .join("circle")
+        .transition()
+            .attr("r", d => rScale(d.Diabetes))
+            .attr("year_prov", d=> d.Year + "_" + d.Geography)
+            .attr("cx", d => xScale(d.Cpi))
+            .attr("cy", d => (yScale(d.FoodInsecure)))
+}
+
+document.getElementById("listenbutton")
+    .addEventListener("click", updateCircles)
