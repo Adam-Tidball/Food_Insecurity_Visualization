@@ -4,10 +4,10 @@ function updateChart(newData) {
     console.log(newData['characteristics']);
 
     
-    // Ensure dimensions are recalculated correctly if needed
-    var margin = {top: 10, right: 30, bottom: 40, left: 150},
-        width = document.getElementById("line_chart").clientWidth - margin.left - margin.right,
-        height = document.getElementById("line_chart").clientHeight - margin.top - margin.bottom;
+    // Set the dimensions and margins of the graph
+    var margin = ({top: 10, right: 30, bottom: 40, left: 150});
+    const height = 250;
+    const width = 800;
 
     // Update the SVG dimensions in case the container size has changed
     d3.select("#line_chart").select("svg")
@@ -86,16 +86,77 @@ function updateChart(newData) {
             return obj;
         });
 
-
         // Select Percent or Number of persons
         var data_type_selected = "Percent"; //temp... use buttons
+
+        // filter data to average of all selected provinces
+        /*var averageData = filteredData.map(function(d) {
+            var obj = {
+                Year: d.Year,
+                Characteristics: d.Characteristics
+            };
+            
+            
+            for (var i = 0; i < characteristics_selected.length; i++) {
+                
+                var sum = 0;
+                for (var j = 0; j < provinces_selected.length; j++) {
+                    sum += d[characteristics_selected[i]];
+                }
+                sum = sum / provinces_selected.length;
+                obj[characteristics_selected[i]] = sum;
+
+            }
+            return obj;
+        });
+
+        console.log(filteredData);
+        console.log(averageData);*/
+        // Filter data to average of all selected provinces
+// Filter data to average of all selected provinces
+var averageData = filteredData.reduce((acc, d) => {
+    // Find if the year and characteristic type already exist in the accumulator
+    let existing = acc.find(item => item.Year === d.Year && item.Characteristics === d.Characteristics);
+    
+    if (!existing) {
+        existing = { Year: d.Year, Characteristics: d.Characteristics };
+        // Initialize sums for each characteristic
+        for (let i = 0; i < characteristics_selected.length; i++) {
+            existing[characteristics_selected[i]] = 0;
+        }
+        existing.count = 0;  // To keep track of how many provinces are added
+        acc.push(existing);
+    }
+    
+    // Sum the values for each characteristic
+    for (let i = 0; i < characteristics_selected.length; i++) {
+        existing[characteristics_selected[i]] += parseFloat(d[characteristics_selected[i]].replace(/,/g, '')) || 0;
+    }
+    existing.count += 1;
+    
+    return acc;
+}, []).map(d => {
+    // Calculate the average for each characteristic
+    for (let i = 0; i < characteristics_selected.length; i++) {
+        d[characteristics_selected[i]] = d[characteristics_selected[i]] / d.count;
+    }
+    delete d.count;  // Remove the count property after averaging
+    return d;
+});
+
+console.log(filteredData);
+console.log(averageData);
+
+
+
+
 
 
         // Add dots for each health characteristic
         for (var i = 0; i < characteristics_selected.length; i++) {
             svg.append("g")
                 .selectAll("dot")
-                .data(filteredData.filter(function(d) {
+                .data(averageData.filter(function(d) {
                     return d.Characteristics === data_type_selected;
                 }))
                 .enter()
@@ -121,11 +182,14 @@ function updateChart(newData) {
 ////////////////////////////////////////////////////////////////
 // Code for the first time the page is loaded
 
+//updateChart({'provinces': ['British Columbia'], 'characteristics': ['Perceived health, very good or excellent', 'Perceived health, fair or poor']});
+
+
 
 // Set the dimensions and margins of the graph
-var margin = {top: 10, right: 30, bottom: 40, left: 150},
-    width = document.getElementById("line_chart").clientWidth - margin.left - margin.right,
-    height = document.getElementById("line_chart").clientHeight - margin.top - margin.bottom;
+var margin = ({top: 10, right: 30, bottom: 40, left: 150});
+const height = 250;
+const width = 800;
 
 // append the svg object to the body of the page
 var svg = d3.select("#line_chart")
