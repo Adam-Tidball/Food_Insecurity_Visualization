@@ -6,11 +6,12 @@
        initial-scale=1.0">
     <title>Tailwind CSS Example</title>
     <link href="./static/dist/css/output.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7" defer></script>
+    <script src="/static/src/js/circle_chart.js" type="module" defer></script>
 </head>
 <div hx-boost class="h-screen flex flex-col justify-start">
     {% include 'header.html' %}
     {% include 'vizbody.html' %}
 </div>
 
-<script type="module" src="static/dist/js/bundle.js"></script>
+<!-- <script type="module" src="static/dist/js/bundle.js"></script> -->

@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.circle_marks {
+    fill: #5048ab;
+    opacity: 0.2;
+    stroke: #373177;
+    stroke-width: 1px;
+    stroke-linejoin: round;
+}
+
+.circle_marks:hover {
+    fill: #37317a;
+    stroke: #151e50;
+    opacity: 0.4;
+    stroke-width: 2px;
+    stroke-linejoin: round;
+}
