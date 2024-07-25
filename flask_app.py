@@ -1,5 +1,8 @@
 from flask import Flask, render_template, send_from_directory, request, jsonify
 from flask_assets import Environment, Bundle
+import mimetypes
+mimetypes.add_type('application/javascript', '.js')
+mimetypes.add_type('text/css', '.css')
   
 # creates a Flask application 
 app = Flask(__name__, instance_relative_config=False) 
