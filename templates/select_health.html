@@ -13,7 +13,7 @@
     {% for province in provinces %}
     <div>
         <label class="container">
-            <input type="checkbox" class="province-checkbox" value="{{ province }}">
+            <input type="checkbox" class="province-checkbox" value="{{ province }}" {% if province in ['British Columbia'] %}checked{% endif %}>
             <span class="checkmark"></span>
             {{ province }}
         </label>
@@ -31,7 +31,7 @@
     {% for characteristic in Sub_Characteristics %}
     <div>
         <label class="container">
-            <input type="checkbox" class="characteristic-checkbox" value="{{ characteristic }}">
+            <input type="checkbox" class="characteristic-checkbox" value="{{ characteristic }}" {% if characteristic in ['Perceived health, very good or excellent', 'Perceived health, fair or poor'] %}checked{% endif %}>
             <span class="checkmark"></span>
             {{ characteristic }}
         </label>
@@ -62,13 +62,24 @@
             selectedCharacteristics.push(checkbox.value);
         });
 
-        // Store the arrays in session storage
-        sessionStorage.setItem('selectedProvinces', JSON.stringify(selectedProvinces));
-        sessionStorage.setItem('selectedCharacteristics', JSON.stringify(selectedCharacteristics));
-
-        console.log('Selected Provinces:', selectedProvinces);
-        console.log('Selected Characteristics:', selectedCharacteristics);
+        // AJAX request to fetch filtered data
+        fetch('../filter_data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                provinces: selectedProvinces,
+                characteristics: selectedCharacteristics,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            updateChart(data); // Call function to update the chart with new data
+        })
+        .catch(error => console.error('Error fetching data:', error));
     }
+    
 
     // Add event listeners to checkboxes to trigger updateSelections
     document.querySelectorAll('.province-checkbox').forEach(function(checkbox) {

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, request, jsonify
 from flask_assets import Environment, Bundle
   
 # creates a Flask application 
@@ -18,6 +18,18 @@ def serve_static(filename):
 @app.route("/") 
 def index(): 
     return render_template('/index.html', var=5)
+
+@app.route("/filter_data", methods=["POST"])
+def filter_data():
+    data = request.json
+    selected_provinces = data['provinces']
+    selected_characteristics = data['characteristics']
+    
+    print(selected_provinces)
+    print(selected_characteristics)
+    
+    return jsonify(data)
+
 
 
 # run the application 
