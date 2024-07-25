@@ -34,9 +34,9 @@ function updateChart(newData) {
             .attr("transform", "translate(0," + height + ")") // move the x axis to the bottom
             .call(d3.axisBottom(x).ticks(d3.max(data, function(d) { return +d.Year; }) - d3.min(data, function(d) { return +d.Year; })).tickFormat(d3.format("d")));
 
-        // Add Y axis
+        //Add Y axis
         var y = d3.scaleLinear()
-            .domain([0, 100])
+            .domain([0, 70])
             .range([ height, 0]);
         svg.append("g")
             .call(d3.axisLeft(y));
@@ -173,6 +173,23 @@ console.log(averageData);
                 });
             }
         
+                // Connect dots with lines
+    for (var i = 0; i < characteristics_selected.length; i++) {
+        svg.append("path")
+            .datum(filteredData.filter(function(d) {
+                return d.Characteristics === data_type_selected;
+            }))
+            .attr("fill", "none")
+            .attr("stroke", function (d) { 
+                return color(characteristics_selected[i]);
+            })
+            .attr("stroke-width", 1.5)
+            .attr("d", d3.line()
+                .x(function(d) { return x(d.Year) })
+                .y(function(d) { return y(d[characteristics_selected[i]]) })
+            )
+            .attr("opacity", 0.5);
+        }
 
         });
     }      
@@ -213,7 +230,7 @@ d3.csv("/data/Health_Characteristics.csv").then(function(data) {
 
     // Add Y axis
     var y = d3.scaleLinear()
-        .domain([0, 100])
+        .domain([0, 70])
         .range([ height, 0]);
     svg.append("g")
         .call(d3.axisLeft(y));
@@ -290,6 +307,24 @@ d3.csv("/data/Health_Characteristics.csv").then(function(data) {
             });
         }
     
+
+    // Connect dots with lines
+    for (var i = 0; i < characteristics_selected.length; i++) {
+        svg.append("path")
+            .datum(filteredData.filter(function(d) {
+                return d.Characteristics === data_type_selected;
+            }))
+            .attr("fill", "none")
+            .attr("stroke", function (d) { 
+                return color(characteristics_selected[i]);
+            })
+            .attr("stroke-width", 1.5)
+            .attr("d", d3.line()
+                .x(function(d) { return x(d.Year) })
+                .y(function(d) { return y(d[characteristics_selected[i]]) })
+            );
+        }
+
 
     });
 
