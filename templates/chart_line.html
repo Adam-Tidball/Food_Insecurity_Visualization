@@ -1,9 +1,8 @@
 <div id="line_chart" class ="w-full h-full">
-    
 
     <script>
         // Set the dimensions and margins of the graph
-        var margin = {top: 10, right: 30, bottom: 30, left: 60},
+        var margin = {top: 10, right: 30, bottom: 50, left: 150},
             width = document.getElementById("line_chart").clientWidth - margin.left - margin.right,
             height = document.getElementById("line_chart").clientHeight - margin.top - margin.bottom;
 
@@ -34,6 +33,19 @@
             svg.append("g")
                 .call(d3.axisLeft(y));
 
+              // Add X axis label:
+            svg.append("text")
+                .attr("text-anchor", "end")
+                .attr("x", width/2)
+                .attr("y", height + margin.top + 30)
+                .text("Year");
+
+            // Y axis label:
+            svg.append("text")
+                .attr("text-anchor", "end")
+                .attr("y", margin.left+20)
+                .attr("x", -margin.right - 10)
+                .text("People (%)")
 
             // Color scale: based on province
             var color = d3.scaleOrdinal()
