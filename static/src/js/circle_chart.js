@@ -1,3 +1,5 @@
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
 // console.log(d3);
 const my_DATA = await d3.csv("/data/Health_Characteristics_diabetes_pruned.csv");
 let parsedData = my_DATA.map( d => ({

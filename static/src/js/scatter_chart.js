@@ -1,4 +1,5 @@
-function updateChart(newData) {
+
+function updateLineChart(newData) {
     console.log(newData);
     console.log(newData['provinces']);
     console.log(newData['characteristics']);
