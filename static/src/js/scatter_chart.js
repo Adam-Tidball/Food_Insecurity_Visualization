@@ -175,22 +175,28 @@ console.log(averageData);
             }
         
                 // Connect dots with lines
+    // Connect dots with lines
     for (var i = 0; i < characteristics_selected.length; i++) {
-        svg.append("path")
-            .datum(filteredData.filter(function(d) {
-                return d.Characteristics === data_type_selected;
-            }))
-            .attr("fill", "none")
-            .attr("stroke", function (d) { 
-                return color(characteristics_selected[i]);
-            })
-            .attr("stroke-width", 1.5)
-            .attr("d", d3.line()
-                .x(function(d) { return x(d.Year) })
-                .y(function(d) { return y(d[characteristics_selected[i]]) })
-            )
-            .attr("opacity", 0.5);
+        var filteredDataByCharacteristic = filteredData.filter(function(d) {
+            return d.Characteristics === data_type_selected;
+        });
+        
+        for (var j = 0; j < filteredDataByCharacteristic.length; j += 5) {
+            var subset = filteredDataByCharacteristic.slice(j, j + 5);
+            
+            svg.append("path")
+                .datum(subset)
+                .attr("fill", "none")
+                .attr("stroke", function (d) { 
+                    return color(characteristics_selected[i]);
+                })
+                .attr("stroke-width", 1.5)
+                .attr("d", d3.line()
+                    .x(function(d) { return x(d.Year) })
+                    .y(function(d) { return y(d[characteristics_selected[i]]) })
+                );
         }
+    }
 
         });
     }      
@@ -282,7 +288,6 @@ d3.csv("/data/Health_Characteristics.csv").then(function(data) {
         return obj;
     });
 
-
     // Select Percent or Number of persons
     var data_type_selected = "Percent"; //temp... use buttons
 
@@ -308,23 +313,28 @@ d3.csv("/data/Health_Characteristics.csv").then(function(data) {
             });
         }
     
-
     // Connect dots with lines
     for (var i = 0; i < characteristics_selected.length; i++) {
-        svg.append("path")
-            .datum(filteredData.filter(function(d) {
-                return d.Characteristics === data_type_selected;
-            }))
-            .attr("fill", "none")
-            .attr("stroke", function (d) { 
-                return color(characteristics_selected[i]);
-            })
-            .attr("stroke-width", 1.5)
-            .attr("d", d3.line()
-                .x(function(d) { return x(d.Year) })
-                .y(function(d) { return y(d[characteristics_selected[i]]) })
-            );
+        var filteredDataByCharacteristic = filteredData.filter(function(d) {
+            return d.Characteristics === data_type_selected;
+        });
+        
+        for (var j = 0; j < filteredDataByCharacteristic.length; j += 5) {
+            var subset = filteredDataByCharacteristic.slice(j, j + 5);
+            
+            svg.append("path")
+                .datum(subset)
+                .attr("fill", "none")
+                .attr("stroke", function (d) { 
+                    return color(characteristics_selected[i]);
+                })
+                .attr("stroke-width", 1.5)
+                .attr("d", d3.line()
+                    .x(function(d) { return x(d.Year) })
+                    .y(function(d) { return y(d[characteristics_selected[i]]) })
+                );
         }
+    }
 
 
     });
