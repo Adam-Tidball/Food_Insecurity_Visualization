@@ -145,17 +145,15 @@ function updateLineChart(newData) {
                 let g = enter.append("g")
                     .attr("id", "char_line_group")
                 
-                g.append("path")
-                    .datum(d => d)
-                    .attr("fill", "none")
-                    .attr("stroke-width", 1.5)
-                    .attr("d", d3.line()
-                        .x(function(d) { return x(d.Year) })
-                        .y(function(d) { return y(d[characteristics_selected[i]]) })
-                    )
-                    .attr("opacity", 0.3);
-            
-                // Doesn't quite work,... 
+                for (let year = 2018; year < 2023; year ++){
+                    g.append("circle")
+                    .attr("cx", d => x(year))
+                    .attr("cy", d => y(d[year]))
+                    .attr("r", 5)
+                    .style("fill", d => color(d.characteristic))
+                    .attr("id", "year"+ year);
+                }
+                // doesn't work, probably jsut start from scratch will be easier.
                 // provinces_selected.forEach(province => {
                 //     let path_datum = filteredData.filter( d => {
                 //         return d.Geography === province
@@ -174,7 +172,6 @@ function updateLineChart(newData) {
                 //         )
                 //         .attr("opacity", 0.3);;
                 // });
-
             },
             update => {
                 let g = update;
@@ -195,7 +192,7 @@ function updateLineChart(newData) {
             }, 
             exit => {
                 let g = exit;
-                exit.remove('*')
+                g.remove('*')
             }
 
         )
@@ -204,7 +201,6 @@ function updateLineChart(newData) {
     
     // Connect dots with lines
     // Connect dots with lines
-    // can be delete probably? 
     // for (var i = 0; i < characteristics_selected.length; i++) {
     //     var filteredDataByCharacteristic = filteredData.filter(function(d) {
     //         return d.Characteristics === data_type_selected;
