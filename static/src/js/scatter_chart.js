@@ -154,6 +154,8 @@ function updateLineChart(newData) {
                         .y(function(d) { return y(d[characteristics_selected[i]]) })
                     )
                     .attr("opacity", 0.3);
+            
+                // Doesn't quite work,... 
                 // provinces_selected.forEach(province => {
                 //     let path_datum = filteredData.filter( d => {
                 //         return d.Geography === province
@@ -172,17 +174,6 @@ function updateLineChart(newData) {
                 //         )
                 //         .attr("opacity", 0.3);;
                 // });
-
-                g.append("path")
-                for (let year = 2018; year < 2023; year ++){
-                    g.append("circle")
-                    .attr("cx", d => x(year))
-                    .attr("cy", d => y(d[year]))
-                    .attr("r", 5)
-                    .style("fill", d => color(d.characteristic))
-                    .attr("id", "year"+ year);
-                }
-
 
             },
             update => {
@@ -213,6 +204,7 @@ function updateLineChart(newData) {
     
     // Connect dots with lines
     // Connect dots with lines
+    // can be delete probably? 
     // for (var i = 0; i < characteristics_selected.length; i++) {
     //     var filteredDataByCharacteristic = filteredData.filter(function(d) {
     //         return d.Characteristics === data_type_selected;
