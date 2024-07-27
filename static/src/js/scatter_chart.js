@@ -144,6 +144,10 @@ function updateLineChart(newData) {
             enter => {
                 let g = enter.append("g")
                     .attr("id", "char_line_group")
+                    .on("click", function(d){
+                        updateCircleChartCharacteristic(d.characteristic);
+                    });
+
                 
                 for (let year = 2018; year < 2023; year ++){
                     g.append("circle")
@@ -153,14 +157,17 @@ function updateLineChart(newData) {
                     .style("fill", d => color(d.characteristic))
                     .attr("id", "year"+ year);
 
-                // delete all lines
-                g.selectAll("line").remove();
+                // Delete all province groups and lines
+                g.selectAll("#province_group").selectAll("line").remove();
+                g.selectAll("#province_group").remove();
 
 
                 for (let province of provinces_selected){
+                    let province_group = g.append("g")
+                        .attr("id", "province_group")
                     for (let year = 2018; year < 2022; year ++){
                         //for (let char of characteristics_selected){
-                            g.append("line")
+                            province_group.append("line")
                                 .attr("x1", x(year))
                                 .attr("x2", x(year+1))
                                 .attr("y1", d => {
@@ -174,7 +181,19 @@ function updateLineChart(newData) {
                                 .style("stroke-width", "2px")
                                 .style("stroke", d => color(d.characteristic))
                                 .style("opacity", 0.3)
-                                .attr("id", d => "line_year"+ province + year + d.characteristic);
+                                .attr("id", d => "line_year"+ province + year + d.characteristic)
+                                .on("mouseover", function(d){
+                                    d3.select(this.parentNode).selectAll("line")
+                                        //.style("stroke", "black")
+                                        .style("opacity", 1)
+                                    console.log("YYYYYYEEEEEEEEE");
+
+                                    setTimeout(() => {
+                                        d3.select(this.parentNode).selectAll("line")
+                                            .style("opacity", 0.3);
+                                    }, 1000);
+                                });
+                            
                         //}
                     }
                 }}
@@ -214,14 +233,17 @@ function updateLineChart(newData) {
                         })
                 }
                 // delete all lines
-                g.selectAll("line").remove();
+                g.selectAll("#province_group").selectAll("line").remove();
+                g.selectAll("#province_group").remove();
 
                 for (let province of provinces_selected){
+                    let province_group = g.append("g")
+                        .attr("id", "province_group")
                     for (let year = 2018; year < 2022; year ++){
                         //for( let char of characteristics_selected){
                             
 
-                            g.append("line")
+                            province_group.append("line")
                                 .attr("x1", function (d) {
                                     return x(year);
                                 })
@@ -246,8 +268,19 @@ function updateLineChart(newData) {
                                 .attr("id", function (d) {
                                     console.log(d);
                                     return "line_year"+ province + year + d.characteristic;
-                                }
-                                );
+                                })
+                                .on("mouseover", function(d){
+                                    d3.select(this.parentNode).selectAll("line")
+                                        //.style("stroke", "black")
+                                        .style("opacity", 1)
+                                    console.log("YYYYYYEEEEEEEEEPPPPP");
+
+                                    setTimeout(() => {
+                                        d3.select(this.parentNode).selectAll("line")
+                                            .style("opacity", 0.3);
+                                    }, 1000);
+
+                                });
                            // }
                     }
                 }
