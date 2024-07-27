@@ -245,6 +245,9 @@ function updateLineChart(newData) {
             },
             update => {
                 let g = update;
+                g.attr("onclick", d => {
+                    return "updateCircleChartCharacteristic(" + "'" +  d.characteristic + "'" +  ")";
+                } )
                 for (let year = 2018; year < 2023; year ++){
                     g.select("#year" + year)
                         .attr("cx", function (d) { 
