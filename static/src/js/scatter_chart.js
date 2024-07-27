@@ -61,7 +61,6 @@ var color = d3.scaleOrdinal()
 
 ////// Main update Loop 
 function updateLineChart(newData) {
-    console.log(newData);
     console.log(newData['provinces']);
     console.log(newData['characteristics']);
 
@@ -137,6 +136,7 @@ function updateLineChart(newData) {
         return obj;
 
     });
+    console.log("finalFilteredData", finalFilteredData);
     // Add dots for each health characteristic
     svg.selectAll("#char_line_group")
         .data(finalFilteredData)
@@ -152,7 +152,32 @@ function updateLineChart(newData) {
                     .attr("r", 5)
                     .style("fill", d => color(d.characteristic))
                     .attr("id", "year"+ year);
-                }
+
+                // delete all lines
+                g.selectAll("line").remove();
+
+
+                for (let province of provinces_selected){
+                    for (let year = 2018; year < 2022; year ++){
+                        //for (let char of characteristics_selected){
+                            g.append("line")
+                                .attr("x1", x(year))
+                                .attr("x2", x(year+1))
+                                .attr("y1", d => {
+                                    let dataForYear = filteredData.find(item => item.Geography === province && item.Year == year);
+                                    return y(dataForYear[d.characteristic]);
+                                })
+                                .attr("y2", d => {
+                                    let dataForNextYear = filteredData.find(item => item.Geography === province && item.Year == (year + 1));
+                                    return y(dataForNextYear[d.characteristic]);
+                                })
+                                .style("stroke-width", "2px")
+                                .style("stroke", d => color(d.characteristic))
+                                .style("opacity", 0.3)
+                                .attr("id", d => "line_year"+ province + year + d.characteristic);
+                        //}
+                    }
+                }}
                 // doesn't work, probably jsut start from scratch will be easier.
                 // provinces_selected.forEach(province => {
                 //     let path_datum = filteredData.filter( d => {
@@ -187,6 +212,44 @@ function updateLineChart(newData) {
                         .style("fill", function (d) { 
                             return color(d.characteristic);
                         })
+                }
+                // delete all lines
+                g.selectAll("line").remove();
+
+                for (let province of provinces_selected){
+                    for (let year = 2018; year < 2022; year ++){
+                        //for( let char of characteristics_selected){
+                            
+
+                            g.append("line")
+                                .attr("x1", function (d) {
+                                    return x(year);
+                                })
+                                .attr("x2", function (d) {
+                                    return x(year+1);
+                                })
+                                .attr("y1", function (d) { 
+                                    let dataForYear = filteredData.find(item => item.Geography === province && item.Year == year);
+                                    return y(dataForYear[d.characteristic]);
+                                })
+                                .attr("y2", function (d) {
+                                    let dataForNextYear = filteredData.find(item => item.Geography === province && item.Year == (year + 1));
+                                    return y(dataForNextYear[d.characteristic]);
+                                })
+                                .style("stroke-width", "2px")
+                                .style("stroke", function (d) { 
+                                    return color(d.characteristic);
+                                })
+                                .style("opacity", function (d) {
+                                    return 0.3;
+                                })
+                                .attr("id", function (d) {
+                                    console.log(d);
+                                    return "line_year"+ province + year + d.characteristic;
+                                }
+                                );
+                           // }
+                    }
                 }
 
             }, 
