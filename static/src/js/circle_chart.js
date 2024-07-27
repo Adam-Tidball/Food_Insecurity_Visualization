@@ -12,9 +12,16 @@ const margin = ({
 const height = 250
 const width = 800 
 let year = 2018
-let rScale = d3.scaleLinear().domain([0, 7]).range([0, 20])
+let rScale = d3.scaleLinear().domain([0, 70]).range([0, 35])
 let xScale = d3.scaleLinear().domain([125, 155]).range([margin.left, width - margin.right])
 let yScale = d3.scaleLinear().domain([5, 30]).range([height - margin.bottom, margin.top])
+
+var color = d3.scaleOrdinal()
+    .domain(Object.keys(rawData[0]).filter(function(key) {
+        return key !== "Year" && key !== "Characteristics";
+    }))
+    .range(["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF", "#FFA500", "#800080", "#FFC0CB", "#008000", "#800000", "#FFD700", "#008080", "#000000"]);
+
 
 
 let svg = d3.select("#health_circle_chart")
@@ -31,21 +38,24 @@ const yAxis = svg
     .attr("transform", `translate(${margin.left},0)`)
     .call(d3.axisLeft(yScale))
 ;
-const circle_pos_size = function (circle_sel, char_sel){
+const circle_pos_size = function (circle_sel){
     circle_sel
         .attr("id", "circle_marks")
         .attr("year_prov", d=> d.Year + "_" + d.Geography)
-        .attr("r", d => rScale(Number(d[char_sel])))
+        .attr("r", d => rScale(Number(d["value"])))
         .attr("cx", d => xScale(d.CPI))
         .attr("cy", d => (yScale(d.FoodInsecure)))
-        .attr("class", "circle_marks");
+        .attr("class", "circle_marks")
+        .attr('test', d=> d["value"])
+        .style("fill", d=> color(d["characteristic"]))
 }
 const text_pos_size = function(text_sel){
     text_sel.text(d => d.Geography)
         .attr("x", d => xScale(d.CPI))
         .style("pointer-events", "none")
         .attr("y", d =>yScale(d.FoodInsecure))
-        .attr("opacity", 0);
+        .attr("opacity", 0)
+        .style("z-index", -99);
 }
 
 const updateCircleChart = function updateCircleChart(year = cur_year, provinces = cur_prov_used, char_sel = "Diabetes"){
@@ -63,8 +73,8 @@ const updateCircleChart = function updateCircleChart(year = cur_year, provinces 
                 CPI: Number(d.CPI),
                 FoodInsecure : Number(d.FoodInsecure)
             };
-            
-            obj[char_sel] = Number(d[char_sel]);
+            obj["characteristic"] = char_sel;
+            obj["value"] = Number(d[char_sel]);
             return obj;
         }).
         filter( d => {
@@ -84,7 +94,8 @@ const updateCircleChart = function updateCircleChart(year = cur_year, provinces 
         enter => {
             console.log("in enter")
             var g = enter.append("g")
-                .attr("id", "circle_gs");
+                .attr("id", "circle_gs")
+                .style('z-index', 0);
                 const circles = g.append('circle')
                 .on("mouseover", function(d){
                     d3.select(this)
@@ -103,11 +114,8 @@ const updateCircleChart = function updateCircleChart(year = cur_year, provinces 
         },
         update => {
             console.log("in update")
-            
             update.transition()
-                .call( update => update.select("#circle_marks").call(circle => {
-                    circle_pos_size(circle, char_sel)
-                }))
+                .call(update => update.select("circle").call(circle_pos_size))
                 .call( update => update.select("text").call(text_pos_size))
         },
         exit => {
@@ -115,12 +123,9 @@ const updateCircleChart = function updateCircleChart(year = cur_year, provinces 
         }
     );
 
-    document.getElementById("listenbutton")
-        .innerText = year
 }
 
-document.getElementById("slide_mouse")
-    .addEventListener("mousemove", onMousemove, false);
+
 
 window.updateCircleChartProvince = updateCircleChartProvince;
 window.updateCircleChartCharacteristic = updateCircleChartCharacteristic;
@@ -137,23 +142,22 @@ function updateCircleChartCharacteristic(char_sel){
 
 function updateCircleChartProvince(provinces){
     cur_prov_used = provinces; 
-
-    updateCircleChart(cur_year, provinces, char_sel);
+    updateCircleChart(cur_year, provinces, cur_char_sel);
 }
 
 function updateCircleChartYear(year){
     cur_year = year; 
-    updateCircleChart(year, cur_prov_used, cur_char_sel);
+
+        updateCircleChart(year, cur_prov_used, cur_char_sel);
 }
 
 
-function onMousemove(event){
-    let rect = event.target.getBoundingClientRect();
-    let x = Number(event.offsetX);
+// function onMousemove(event){
+//     let rect = event.target.getBoundingClientRect();
+//     let x = Number(event.offsetX);
 
 
-    const year_to_use = Math.round( (x / rect.width) * (2022 - 2018) + 2018)
-    if (year_to_use != cur_year){
-        updateCircleChartYear(year_to_use); 
-    }
-}
+//     const year_to_use = Math.round( (x / rect.width) * (2022 - 2018) + 2018)
+//     if (year_to_use != cur_year){
+//         updateCircleChartYear(year_to_use); 
+//     }

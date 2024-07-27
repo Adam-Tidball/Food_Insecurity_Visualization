@@ -4,7 +4,7 @@
 
 .circle_marks {
     fill: #5048ab;
-    opacity: 0.2;
+    opacity: 0.7;
     stroke: #373177;
     stroke-width: 1px;
     stroke-linejoin: round;
@@ -16,4 +16,16 @@
     opacity: 0.4;
     stroke-width: 2px;
     stroke-linejoin: round;
+}
+
+.timeline_box{
+    fill: #776fc5;
+    opacity: 0;
+    stroke: #373177;
+    stroke-width: 1px;
+    stroke-linejoin: round;
+}
+.timeline_box:hover, 
+.timelin_box:hover ~ .timeline_box{
+    opacity: 0.3;
 }

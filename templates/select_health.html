@@ -13,7 +13,7 @@
     {% for province in provinces %}
     <div>
         <label class="container">
-            <input type="checkbox" class="province-checkbox" value="{{ province }}" {% if province in ['British Columbia'] %}checked{% endif %}>
+            <input type="checkbox" class="province-checkbox" value="{{ province }}">
             <span class="checkmark"></span>
             {{ province }}
         </label>
@@ -31,7 +31,7 @@
     {% for characteristic in Sub_Characteristics %}
     <div>
         <label class="container">
-            <input type="checkbox" class="characteristic-checkbox" value="{{ characteristic }}" {% if characteristic in ['Perceived health, very good or excellent', 'Perceived health, fair or poor'] %}checked{% endif %}>
+            <input type="checkbox" class="characteristic-checkbox" value="{{ characteristic }}">
             <span class="checkmark"></span>
             {{ characteristic }}
         </label>
@@ -76,7 +76,7 @@
         .then(response => response.json())
         .then(data => {
             console.log(data)
-            updateCircleChartSelection(data['provinces'], "Diabetes")
+            updateCircleChartProvince(data['provinces'])
             updateLineChart(data); // Call function to update the chart with new data
         })
         .catch(error => console.error('Error fetching data:', error));
