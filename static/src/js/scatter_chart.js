@@ -49,7 +49,7 @@ for (let i = 0; i < 5; i++){
         if ((2018 + i) != cur_year_box_selected){
             updateCircleChartYear(2018+i)
             svg.select("#timeline_box" + (2018+i))
-                .style("opacity", 0.25)
+                .style("opacity", 0.12)
             console.log("#timeline_box" + (cur_year_box_selected))
             svg.select("#timeline_box" + (cur_year_box_selected))
                 .style("opacity", 0)
@@ -84,14 +84,14 @@ svg.append("text")
 
 
 var colorMapping = {
-    "Perceived Good Health": "#B97842",
-    "Perceived Poor Health": "#40476D",
-    "Percieved good mental health": "#4FB477",
-    "Percieved poor mental health": "#33A1FD",
-    "Obese": "#FF4E4B",
-    "Diabetes": "#B65DF7",
-    "High blood pressure": "#750D37",
-    "Mood disorder": "#FCDC4D"
+    "Perceived Good Health": "#5C3E23",
+    "Perceived Poor Health": "#2A3A92",
+    "Percieved good mental health": "#02692B",
+    "Percieved poor mental health": "#1388E7",
+    "Obese": "#E00400",
+    "Diabetes": "#A637F6",
+    "High blood pressure": "#C72486",
+    "Mood disorder": "#DD7703"
 };
 
 // 56a3a6-2d4739-e4572e-6b0f1a-f3a712
@@ -252,7 +252,7 @@ function updateLineChart(newData) {
                                     return y(dataForNextYear[d.characteristic]);
                                 })
                                 .text(d => d.characteristic)
-                                .style("font-size", "12px")
+                                .style("font-size", "13px")
                                 .style("font-weight", "bold")
                                 .style("fill", d => color(d.characteristic))
                                 .style("display", "none")
@@ -357,7 +357,7 @@ function updateLineChart(newData) {
                                 return y(dataForNextYear[d.characteristic]);
                             })
                             .text(d => d.characteristic)
-                            .style("font-size", "12px")
+                            .style("font-size", "13px")
                             .style("font-weight", "bold")
                             .style("fill", function(d)
                             {
