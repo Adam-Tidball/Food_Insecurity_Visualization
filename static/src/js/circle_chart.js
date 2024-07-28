@@ -41,7 +41,7 @@ const yAxis = svg
 const circle_pos_size = function (circle_sel){
     circle_sel
         .attr("id", "circle_marks")
-        .attr("year_prov", d=> d.Year + "_" + d.Geography)
+        .attr("assoc_line_year", d=> "line_year" + d.Geography + d.Year + d.characteristic)
         .attr("r", d => rScale(Number(d["value"])))
         .attr("cx", d => xScale(d.CPI))
         .attr("cy", d => (yScale(d.FoodInsecure)))
@@ -101,7 +101,7 @@ const updateCircleChart = function updateCircleChart(year = cur_year, provinces 
                     d3.select(this)
                         .attr("opacity", 0.75)
                     d3.select(this.parentNode).selectAll("text")
-                        .attr("opacity", 1)
+                        .attr("opacity", 1)                    
                 })
                 .on("mouseout", function(d){
                     d3.select(this.parentNode).selectAll("text")
@@ -116,7 +116,7 @@ const updateCircleChart = function updateCircleChart(year = cur_year, provinces 
             console.log("in update")
             update.transition()
                 .call(update => update.select("circle").call(circle_pos_size))
-                .call( update => update.select("text").call(text_pos_size))
+                .call(update => update.select("text").call(text_pos_size))
         },
         exit => {
             exit.remove("*")

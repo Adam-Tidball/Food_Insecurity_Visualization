@@ -1,20 +1,20 @@
-<div class="bg-green-200 h-full p-10 flex flex-col justify-start">
+<div class="bg-base-100 h-full p-10 flex flex-col justify-start">
     <div class="h-1/2 flex flex-row justify start space-x-4 mb-5">
-        <div class="bg-red-200 w-3/4"> 
+        <div class="bg-base-200 w-3/4 rounded-2xl border-success border-4"> 
             {% include 'chart_line.html' %}
 
         </div>
-        <div class="bg-purple-200 w-1/4"> 
+        <div class="bg-base-200 w-1/4 rounded-2xl border-warning border-4"> 
             {% include 'select_health.html' %}
 
         </div>
     </div>
 
     <div class="h-1/2 flex flex-row justify start space-x-4 mb-5">
-        <div class="bg-orange-200 w-1/4"> 
+        <div class="bg-base-200 w-1/4 rounded-2xl border-secondary border-4"> 
             {% include 'select_province.html' %}    
         </div>
-        <div class="bg-cyan-200 w-3/4"> 
+        <div class="bg-base-200 w-3/4 rounded-2xl border-primary border-4"> 
             {% include 'chart_circle.html' %}   
         </div>
     </div>

@@ -21,7 +21,7 @@ def serve_static(filename):
 
 @app.route("/") 
 def index(): 
-    return render_template('/index.html', var=5)
+    return render_template('/index.html')
 
 @app.route("/filter_data", methods=["POST"])
 def filter_data():

@@ -6,6 +6,11 @@ const height = 250;
 const width = 800;
 let rawData = await d3.csv("/data/Health_Characteristics.csv");
 
+let starting_values = {
+    "provinces": ["British Columbia", "Alberta"], 
+    "characteristics": ["Diabetes"],
+    "year": 2018
+}
 
 // append the svg object to the body of the page
 var svg = d3.select("#line_chart")
@@ -30,17 +35,26 @@ var y = d3.scaleLinear()
     .domain([0, 70])
     .range([ height, 0]);
 
-
+let cur_year_box_selected = 2018
 for (let i = 0; i < 5; i++){
     svg.append("rect")
-    .attr("id", "timeline_box")
+    .attr("id", "timeline_box" + (2018+i))
     .attr("x", (width/5) * i )
     .attr("y", 0)
     .attr("width", (width)/5 )
     .attr("height", height)
-    .classed("timeline_box", true)
+    .classed("fill-success", true)
+    .style("opacity", 0 )
     .on("mouseover", d => {
-        updateCircleChartYear(2018+i)
+        if ((2018 + i) != cur_year_box_selected){
+            updateCircleChartYear(2018+i)
+            svg.select("#timeline_box" + (2018+i))
+                .style("opacity", 0.25)
+            console.log("#timeline_box" + (cur_year_box_selected))
+            svg.select("#timeline_box" + (cur_year_box_selected))
+                .style("opacity", 0)
+            cur_year_box_selected = (2018 + i)
+        }
     })
 }
 
@@ -236,7 +250,7 @@ function updateLineChart(newData) {
                                     })
                                     .text(d => d.characteristic)
                                     .style("font-size", "12px")
-                                    .style("fill", "black");
+                                    .style("fill", "black")
                             
             
             }
@@ -388,3 +402,4 @@ function updateLineChart(newData) {
     //     }
     // }
 }
+updateLineChart(starting_values);
