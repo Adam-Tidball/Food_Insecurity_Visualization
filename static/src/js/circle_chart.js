@@ -16,12 +16,26 @@ let rScale = d3.scaleLinear().domain([0, 70]).range([0, 35])
 let xScale = d3.scaleLinear().domain([125, 155]).range([margin.left, width - margin.right])
 let yScale = d3.scaleLinear().domain([5, 30]).range([height - margin.bottom, margin.top])
 
-var color = d3.scaleOrdinal()
+/*var color = d3.scaleOrdinal()
     .domain(Object.keys(rawData[0]).filter(function(key) {
         return key !== "Year" && key !== "Characteristics";
     }))
     .range(["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF", "#FFA500", "#800080", "#FFC0CB", "#008000", "#800000", "#FFD700", "#008080", "#000000"]);
+*/
+var colorMapping = {
+    "Perceived Good Health": "#00FF00",
+    "Perceived Poor Health": "#FF0000",
+    "Percieved good mental health": "#0000FF",
+    "Percieved poor mental health": "#FFFF00",
+    "Obese": "#FF00FF",
+    "Diabetes": "#00FFFF",
+    "High blood pressure": "#FFA500",
+    "Mood disorder": "#800080"
+};
 
+var color = function(characteristic) {
+    return colorMapping[characteristic] || "#000000"; // Default to black if not found
+};
 
 
 let svg = d3.select("#health_circle_chart")
