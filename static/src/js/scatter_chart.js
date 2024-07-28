@@ -68,7 +68,7 @@ svg.append("g")
 svg.append("g")
     .call(d3.axisLeft(y));
 
-
+// X axis label:
 svg.append("text")
     .attr("text-anchor", "end")
     .attr("x", width/2)
@@ -78,7 +78,7 @@ svg.append("text")
 // Y axis label:
 svg.append("text")
     .attr("text-anchor", "end")
-    .attr("y", margin.left+20)
+    .attr("y", margin.top + 100)
     .attr("x", -margin.right - 10)
     .text("People (%)")
 

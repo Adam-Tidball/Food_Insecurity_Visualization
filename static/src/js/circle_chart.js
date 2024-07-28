@@ -7,7 +7,7 @@ const margin = ({
     top: 20,
     right: 0,
     bottom: 10,
-    left: 50
+    left: 150
 });
 const height = 250
 const width = 800 
@@ -38,6 +38,25 @@ const yAxis = svg
     .attr("transform", `translate(${margin.left},0)`)
     .call(d3.axisLeft(yScale))
 ;
+
+// Add x-axis label
+svg.append("text")
+    .attr("class", "x-axis-label")
+    .attr("text-anchor", "end")
+    .attr("x", width / 2 + margin.left)
+    .attr("y", height + margin.top + 0)
+    .text("temp x");
+
+// Add y-axis label
+svg.append("text")
+    .attr("class", "y-axis-label")
+    .attr("text-anchor", "end")
+    .attr("x", margin.right + 100)
+    .attr("y", margin.top + 100)
+    //.attr("transform", "rotate(-90)")
+    .text("temp y");
+
+
 const circle_pos_size = function (circle_sel){
     circle_sel
         .attr("id", "circle_marks")
