@@ -183,6 +183,7 @@ function updateLineChart(newData) {
                                 .selectAll("line")
                                 .style("opacity", 0.3)
                         });
+                        
 
                 // Delete all province groups and lines
                 g.selectAll("#province_group").selectAll("line").remove();
@@ -219,10 +220,26 @@ function updateLineChart(newData) {
                                         .selectAll("line")
                                         .style("opacity", 0.3)
                                 });
-                            
-                        //}
+
+
                     }
-                }}
+                }
+
+                            // Add label at the end of the scatter line
+
+                            var province = provinces_selected[0];
+                                g.append("text")
+                                    .attr("x", x(2022) + 15) // Position the text to the right of the circle
+                                    .attr("y", d => {
+                                        let dataForNextYear = filteredData.find(item => item.Geography === province && item.Year == (2022));
+                                        return y(dataForNextYear[d.characteristic]);
+                                    })
+                                    .text(d => d.characteristic)
+                                    .style("font-size", "12px")
+                                    .style("fill", "black");
+                            
+            
+            }
                 // doesn't work, probably jsut start from scratch will be easier.
                 // provinces_selected.forEach(province => {
                 //     let path_datum = filteredData.filter( d => {
@@ -321,6 +338,18 @@ function updateLineChart(newData) {
                                         .style("opacity", 0.3)
                                 });
                            // }
+
+                        
+                           var prov = provinces_selected[0];
+                           g.append("text")
+                               .attr("x", x(2022) + 15) // Position the text to the right of the circle
+                               .attr("y", function(d) {
+                                   let dataForNextYear = filteredData.find(item => item.Geography === prov && item.Year == (2022));
+                                   return y(dataForNextYear[d.characteristic]);
+                               })
+                               .text(d => d.characteristic)
+                               .style("font-size", "12px")
+                               .style("fill", "black");
                     }
                 }
 
