@@ -151,7 +151,6 @@ function updateCircleChartYear(year){
         updateCircleChart(year, cur_prov_used, cur_char_sel);
 }
 
-
 // function onMousemove(event){
 //     let rect = event.target.getBoundingClientRect();
 //     let x = Number(event.offsetX);

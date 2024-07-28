@@ -1,7 +1,6 @@
-<!-- {% set Sub_Characteristics = ['Perceived health, very good or excellent', 'Perceived health, fair or poor', 'Perceived mental health, very good or excellent', 'Perceived mental health, fair or poor', 'Body mass index, adjusted self-reported, adult (18 years and over), obese', 'Diabetes', 'High blood pressure', 'Asthma', 'Mood disorder', 'Anxiety disorder'] %} -->
-{% set Sub_Characteristics = ["Diabetes"] %}
+{% set Sub_Characteristics = ['Perceived Good Health', 'Perceived Poor Health', 'Percieved good mental health', 'Percieved poor mental health', 'Obese', 'Diabetes', 'High blood pressure', 'Mood disorder'] %}
 <!-- {% set Characteristics = ['Perceived health, very good or excellent', 'Perceived health, fair or poor', 'Perceived mental health, very good or excellent', 'Perceived mental health, fair or poor', 'Perceived life stress, most days quite a bit or extremely stressful', 'Body mass index, adjusted self-reported, adult (18 years and over), overweight', 'Body mass index, adjusted self-reported, adult (18 years and over), obese', 'Body mass index, self-reported, youth (12 to 17 years old), overweight or obese', 'Arthritis (15 years and over)', 'Diabetes', 'Asthma', 'Chronic obstructive pulmonary disease (COPD; 35 years and over)', 'High blood pressure', 'Mood disorder', 'Anxiety disorder', 'Current smoker, daily or occasional', 'Current smoker, daily', 'Cannabis use, past 12 months', 'Cannabis frequency of use in the past 12 months, daily or almost daily', 'Ever used e-cigarette or vaping device', 'Used e-cigarette or vaping device, past 30 days', 'Heavy drinking', 'Self-reported physical activity, 150 minutes per week, adult (18 years and over)', 'Self-reported physical activity, average 60 minutes per day, youth (12 to 17 years old)', 'Breast milk feeding initiation', 'Exclusive breastfeeding, at least 6 months', 'Fruit and vegetable consumption, 5 times or more per day', 'Sense of belonging to local community, somewhat strong or very strong', 'Life satisfaction, satisfied or very satisfied', 'Has a regular healthcare provider', 'Contact with a medical doctor in the past 12 months', 'Influenza immunization in the past 12 months'] %} -->
-
+<div>
 
     <div style="font-size: large;">
         Select Health Characteristics
@@ -9,9 +8,10 @@
     
     <div class="flex flex-col justify-between w-full h-full items-center space-y-1.5">
         {% for characteristic in Sub_Characteristics %}
-        <label class="btn btn-warning btn-sm w-3/4 flex flex-row justify-start">
+        <label class="btn btn-warning btn-xs w-3/4 h-7 flex flex-row justify-start">
             <input type="checkbox" class="characteristic-checkbox checkbox checkbox-warning" value="{{ characteristic }}" {% if characteristic in ['Diabetes'] %}checked{% endif %}>
             <span class="checkmark">{{ characteristic }}</span>
         </label>
         {% endfor %}
     </div>
+</div>
