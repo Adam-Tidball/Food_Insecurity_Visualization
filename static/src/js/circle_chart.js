@@ -59,7 +59,7 @@ svg.append("text")
     .attr("text-anchor", "end")
     .attr("x", width / 2 + margin.left)
     .attr("y", height + margin.top + 0)
-    .text("temp x");
+    .text("CPI - Inflation Marker");
 
 // Add y-axis label
 svg.append("text")
@@ -68,7 +68,11 @@ svg.append("text")
     .attr("x", margin.right + 100)
     .attr("y", margin.top + 100)
     //.attr("transform", "rotate(-90)")
-    .text("temp y");
+    .text("Percent Food")
+    .append("tspan")
+    .attr("x", margin.right + 100)
+    .attr("dy", "1.2em")
+    .text("Insecure (%)");
 
 
 const circle_pos_size = function (circle_sel){
