@@ -58,7 +58,7 @@ svg.append("text")
     .attr("class", "x-axis-label")
     .attr("text-anchor", "end")
     .attr("x", width / 2 + margin.left)
-    .attr("y", height + margin.top + 0)
+    .attr("y", height + margin.top + 10)
     .text("CPI - Inflation Marker");
 
 // Add y-axis label
