@@ -15,7 +15,7 @@ let starting_values = {
 // append the svg object to the body of the page
 var svg = d3.select("#line_chart")
     .append("svg")
-        .attr("width", width + margin.left + margin.right)
+        .attr("width", width + margin.left + margin.right + 100)
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
         .attr("transform",
