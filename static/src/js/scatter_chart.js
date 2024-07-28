@@ -253,9 +253,7 @@ function updateLineChart(newData) {
                                 })
                                 .text(d => d.characteristic)
                                 .style("font-size", "12px")
-                                .style("stroke", "black") // Outline color
-                                .style("stroke-width", "0.5px") // Outline width
-                                .style("paint-order", "stroke") // Ensure stroke is painted before fill
+                                .style("font-weight", "bold")
                                 .style("fill", d => color(d.characteristic))
                                 .style("display", "none")
                                 .style("width", 20)
@@ -360,9 +358,7 @@ function updateLineChart(newData) {
                             })
                             .text(d => d.characteristic)
                             .style("font-size", "12px")
-                            .style("stroke", "black") // Outline color
-                            .style("stroke-width", "0.5px") // Outline width
-                            .style("paint-order", "stroke") // Ensure stroke is painted before fill
+                            .style("font-weight", "bold")
                             .style("fill", function(d)
                             {
                                 return color(d.characteristic);    
