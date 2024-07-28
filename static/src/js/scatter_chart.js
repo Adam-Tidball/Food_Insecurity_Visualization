@@ -90,6 +90,11 @@ var color = d3.scaleOrdinal()
 
 updateLineChart({"provinces": [], "characteristics": []})
 
+
+function sanitizeId(id) {
+    return id.replace(/\s+/g, '_');
+}
+
 ////// Main update Loop 
 function updateLineChart(newData) {
     console.log(newData['provinces']);
@@ -191,11 +196,18 @@ function updateLineChart(newData) {
                             d3.select(this.parentNode)
                                 .selectAll("line")
                                 .style("opacity", 1)
+                                .style("stroke-width", "3px")
+                            let data = d3.select(this).datum();
+                            d3.select(this.parentNode.parentNode).select("#text" + sanitizeId(data.characteristic)).style("display", "block");
+                                
                         })
                         .on("mouseout", function(d){
                             d3.select(this.parentNode)
                                 .selectAll("line")
                                 .style("opacity", 0.3)
+                                .style("stroke-width", "2px")
+                            let data = d3.select(this).datum();
+                            d3.select(this.parentNode.parentNode).select("#text" + sanitizeId(data.characteristic)).style("display", "none"); //make nnone
                         });
                         
 
@@ -208,71 +220,69 @@ function updateLineChart(newData) {
                     let province_group = g.append("g")
                         .attr("id", "province_group")
                     for (let year = 2018; year < 2022; year ++){
-                        //for (let char of characteristics_selected){
-                            province_group.append("line")
-                                .attr("x1", x(year))
-                                .attr("x2", x(year+1))
-                                .attr("y1", d => {
-                                    let dataForYear = filteredData.find(item => item.Geography === province && item.Year == year);
-                                    return y(dataForYear[d.characteristic]);
-                                })
-                                .attr("y2", d => {
-                                    let dataForNextYear = filteredData.find(item => item.Geography === province && item.Year == (year + 1));
+
+
+                        // Add label at the end of the scatter line
+
+                        var prov = provinces_selected[0];
+                            g.append("text")
+                                .attr("id", d => "text"+sanitizeId(d.characteristic))
+                                .attr("x", x(2022) + 15) // Position the text to the right of the circle
+                                .attr("y", d => {
+                                    let dataForNextYear = filteredData.find(item => item.Geography === prov && item.Year == (2022));
                                     return y(dataForNextYear[d.characteristic]);
                                 })
-                                .style("stroke-width", "2px")
-                                .style("stroke", d => color(d.characteristic))
-                                .style("opacity", 0.3)
-                                .attr("id", d => "line_year"+ province + year + d.characteristic)
-                                .on("mouseover", function(d){
-                                    d3.select(this.parentNode.parentNode)
-                                        .selectAll("line")
-                                        .style("opacity", 1)
-                                })
-                                .on("mouseout", function(d){
-                                    d3.select(this.parentNode.parentNode)
-                                        .selectAll("line")
-                                        .style("opacity", 0.3)
-                                });
+                                .text(d => d.characteristic)
+                                .style("font-size", "12px")
+                                .style("stroke", "black") // Outline color
+                                .style("stroke-width", "0.5px") // Outline width
+                                .style("paint-order", "stroke") // Ensure stroke is painted before fill
+                                .style("fill", d => color(d.characteristic))
+                                .style("display", "none");
+
+
+                        province_group.append("line")
+                            .attr("x1", x(year))
+                            .attr("x2", x(year+1))
+                            .attr("y1", d => {
+                                let dataForYear = filteredData.find(item => item.Geography === province && item.Year == year);
+                                return y(dataForYear[d.characteristic]);
+                            })
+                            .attr("y2", d => {
+                                let dataForNextYear = filteredData.find(item => item.Geography === province && item.Year == (year + 1));
+                                return y(dataForNextYear[d.characteristic]);
+                            })
+                            .style("stroke-width", "2px")
+                            .style("stroke", d => color(d.characteristic))
+                            .style("opacity", 0.3)
+                            .attr("id", d => "line_year"+ sanitizeId(province) + year + sanitizeId(d.characteristic))
+                            .on("mouseover", function(d){
+                                d3.select(this.parentNode.parentNode)
+                                    .selectAll("line")
+                                    .style("opacity", 1)
+                                    .style("stroke-width", "3px")
+                                let data = d3.select(this).datum();
+                                d3.select(this.parentNode.parentNode).select("#text" + sanitizeId(data.characteristic)).style("display", "block");
+                                
+                            })
+                            .on("mouseout", function(d){
+                                d3.select(this.parentNode.parentNode)
+                                    .selectAll("line")
+                                    .style("opacity", 0.3)
+                                    .style("stroke-width", "2px")
+                                let data = d3.select(this).datum();
+                                d3.select(this.parentNode.parentNode).select("#text" + sanitizeId(data.characteristic)).style("display", "none"); //make nnone
+                            });
 
 
                     }
                 }
-
-                            // Add label at the end of the scatter line
-
-                            var province = provinces_selected[0];
-                                g.append("text")
-                                    .attr("x", x(2022) + 15) // Position the text to the right of the circle
-                                    .attr("y", d => {
-                                        let dataForNextYear = filteredData.find(item => item.Geography === province && item.Year == (2022));
-                                        return y(dataForNextYear[d.characteristic]);
-                                    })
-                                    .text(d => d.characteristic)
-                                    .style("font-size", "12px")
-                                    .style("fill", "black")
-                            
-            
+                                        
             }
-                // doesn't work, probably jsut start from scratch will be easier.
-                // provinces_selected.forEach(province => {
-                //     let path_datum = filteredData.filter( d => {
-                //         return d.Geography === province
-                //     })
-                //     console.log("line_datum", path_datum)
-                //     g.append("path")
-                //         .datum(path_datum)
-                //         .attr("fill", "none")
-                //         .attr("stroke", function (d) { 
-                //             return color(characteristics_selected[i]);
-                //         })
-                //         .attr("stroke-width", 1.5)
-                //         .attr("d", d3.line()
-                //             .x(function(d) { return x(d.Year) })
-                //             .y(function(d) { return y(d[characteristics_selected[i]]) })
-                //         )
-                //         .attr("opacity", 0.3);;
-                // });
+
+            
+                
+  
             },
             update => {
                 let g = update;
@@ -295,11 +305,19 @@ function updateLineChart(newData) {
                             d3.select(this.parentNode)
                                 .selectAll("line")
                                 .style("opacity", 1)
+                                .style("stroke-width", "3px")
+                            let data = d3.select(this).datum();
+                            d3.select(this.parentNode.parentNode).select("#text" + sanitizeId(data.characteristic)).style("display", "block");
+                               
                         })
                         .on("mouseout", function(d){
                             d3.select(this.parentNode)
                                 .selectAll("line")
                                 .style("opacity", 0.3)
+                                .style("stroke-width", "2px")
+                            let data = d3.select(this).datum();
+                            d3.select(this.parentNode.parentNode).select("#text" + sanitizeId(data.characteristic)).style("display", "none"); //make nnone
+                           
                         });
                 }
                 // delete all lines
@@ -310,62 +328,74 @@ function updateLineChart(newData) {
                     let province_group = g.append("g")
                         .attr("id", "province_group")
                     for (let year = 2018; year < 2022; year ++){
-                        //for( let char of characteristics_selected){
+                        
+                        var prov = provinces_selected[0];
+                        g.append("text")
+                            .attr("id", d => "text"+sanitizeId(d.characteristic))
+                            .attr("x", x(2022) + 15) // Position the text to the right of the circle
+                            .attr("y", function(d) {
+                                let dataForNextYear = filteredData.find(item => item.Geography === prov && item.Year == (2022));
+                                return y(dataForNextYear[d.characteristic]);
+                            })
+                            .text(d => d.characteristic)
+                            .style("font-size", "12px")
+                            .style("stroke", "black") // Outline color
+                            .style("stroke-width", "0.5px") // Outline width
+                            .style("paint-order", "stroke") // Ensure stroke is painted before fill
+                            .style("fill", function(d)
+                            {
+                                return color(d.characteristic);    
+                            })
+                            .style("display", "none");
+
+                        province_group.append("line")
+                            .data(finalFilteredData)//test
+                            .attr("x1", function (d) {
+                                return x(year);
+                            })
+                            .attr("x2", function (d) {
+                                return x(year+1);
+                            })
+                            .attr("y1", function (d) { 
+                                let dataForYear = filteredData.find(item => item.Geography === province && item.Year == year);
+                                return y(dataForYear[d.characteristic]);
+                            })
+                            .attr("y2", function (d) {
+                                let dataForNextYear = filteredData.find(item => item.Geography === province && item.Year == (year + 1));
+                                return y(dataForNextYear[d.characteristic]);
+                            })
+                            .style("stroke-width", "2px")
+                            .style("stroke", function (d) { 
+                                return color(d.characteristic);
+                            })
+                            .style("opacity", function (d) {
+                                return 0.3;
+                            })
+                            .attr("id", function (d) {
+                                console.log(d);
+                                return "line_year"+ sanitizeId(province) + year + sanitizeId(d.characteristic);
+                            })
+                            .on("mouseover", function(d){
+                                d3.select(this.parentNode.parentNode).selectAll("line")
+                                    //.selectAll("line")
+                                    .style("opacity", 1)
+                                    .style("stroke-width", "3px")
+                                let data = d3.select(this).datum();
+                                d3.select(this.parentNode.parentNode).select("#text" + sanitizeId(data.characteristic)).style("display", "block");
                             
 
-                            province_group.append("line")
-                                .attr("x1", function (d) {
-                                    return x(year);
-                                })
-                                .attr("x2", function (d) {
-                                    return x(year+1);
-                                })
-                                .attr("y1", function (d) { 
-                                    let dataForYear = filteredData.find(item => item.Geography === province && item.Year == year);
-                                    return y(dataForYear[d.characteristic]);
-                                })
-                                .attr("y2", function (d) {
-                                    let dataForNextYear = filteredData.find(item => item.Geography === province && item.Year == (year + 1));
-                                    return y(dataForNextYear[d.characteristic]);
-                                })
-                                .style("stroke-width", "2px")
-                                .style("stroke", function (d) { 
-                                    return color(d.characteristic);
-                                })
-                                .style("opacity", function (d) {
-                                    return 0.3;
-                                })
-                                .attr("id", function (d) {
-                                    console.log(d);
-                                    return "line_year"+ province + year + d.characteristic;
-                                })
-                                .on("mouseover", function(d){
-                                    d3.select(this.parentNode.parentNode).selectAll("line")
-                                        //.style("stroke", "black")
-                                        .style("opacity", 1)
-                                    
-
-                                })
-                                .on("mouseout", function(d){
-                                    d3.select(this.parentNode.parentNode)
-                                        .selectAll("line")
-                                        .style("opacity", 0.3)
-                                });
-                           // }
-
-                        
-                           var prov = provinces_selected[0];
-                           g.append("text")
-                               .attr("x", x(2022) + 15) // Position the text to the right of the circle
-                               .attr("y", function(d) {
-                                   let dataForNextYear = filteredData.find(item => item.Geography === prov && item.Year == (2022));
-                                   return y(dataForNextYear[d.characteristic]);
-                               })
-                               .text(d => d.characteristic)
-                               .style("font-size", "12px")
-                               .style("fill", "black");
+                            })
+                            .on("mouseout", function(d){
+                                d3.select(this.parentNode.parentNode)
+                                    .selectAll("line")
+                                    .style("opacity", 0.3)
+                                    .style("stroke-width", "2px")
+                                let data = d3.select(this).datum();
+                                d3.select(this.parentNode.parentNode).select("#text" + sanitizeId(data.characteristic)).style("display", "none"); //make nnone
+                            });
                     }
                 }
+                
 
             }, 
             exit => {
