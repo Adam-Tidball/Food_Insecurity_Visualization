@@ -177,7 +177,7 @@ function updateCircleChartCharacteristic(char_sel){
 
     // Update the chart title with the current characteristic
     d3.select("#circle_chart_title h1")
-        .text(`Bubble Chart for year: ${cur_year} - Characteristic: ${cur_char_sel}`);
+        .text(`${cur_year} - Characteristic: ${cur_char_sel}`);
 
     updateCircleChart(cur_year, cur_prov_used, char_sel);
 }
@@ -192,7 +192,7 @@ function updateCircleChartYear(year){
     
     // Update the chart title with the current year
     d3.select("#circle_chart_title h1")
-        .text(`Bubble Chart for year: ${cur_year} - Characteristic: ${cur_char_sel}`);
+        .text(`${cur_year} - Characteristic: ${cur_char_sel}`);
     
     updateCircleChart(year, cur_prov_used, cur_char_sel);
 }
