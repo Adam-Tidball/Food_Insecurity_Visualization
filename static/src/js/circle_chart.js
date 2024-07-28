@@ -137,6 +137,11 @@ var cur_year = 2018;
 
 function updateCircleChartCharacteristic(char_sel){
     cur_char_sel = char_sel;
+
+    // Update the chart title with the current characteristic
+    d3.select("#circle_chart_title h1")
+        .text(`Bubble Chart for year: ${cur_year} - Characteristic: ${cur_char_sel}`);
+
     updateCircleChart(cur_year, cur_prov_used, char_sel);
 }
 
@@ -147,8 +152,12 @@ function updateCircleChartProvince(provinces){
 
 function updateCircleChartYear(year){
     cur_year = year; 
-
-        updateCircleChart(year, cur_prov_used, cur_char_sel);
+    
+    // Update the chart title with the current year
+    d3.select("#circle_chart_title h1")
+        .text(`Bubble Chart for year: ${cur_year} - Characteristic: ${cur_char_sel}`);
+    
+    updateCircleChart(year, cur_prov_used, cur_char_sel);
 }
 
 // function onMousemove(event){
