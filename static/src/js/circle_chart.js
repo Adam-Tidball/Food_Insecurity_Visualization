@@ -23,14 +23,14 @@ let yScale = d3.scaleLinear().domain([5, 30]).range([height - margin.bottom, mar
     .range(["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF", "#FFA500", "#800080", "#FFC0CB", "#008000", "#800000", "#FFD700", "#008080", "#000000"]);
 */
 var colorMapping = {
-    "Perceived Good Health": "#00FF00",
-    "Perceived Poor Health": "#FF0000",
-    "Percieved good mental health": "#0000FF",
-    "Percieved poor mental health": "#FFFF00",
-    "Obese": "#FF00FF",
-    "Diabetes": "#00FFFF",
-    "High blood pressure": "#FFA500",
-    "Mood disorder": "#800080"
+    "Perceived Good Health": "#B97842",
+    "Perceived Poor Health": "#40476D",
+    "Percieved good mental health": "#4FB477",
+    "Percieved poor mental health": "#33A1FD",
+    "Obese": "#FF4E4B",
+    "Diabetes": "#B65DF7",
+    "High blood pressure": "#750D37",
+    "Mood disorder": "#FCDC4D"
 };
 
 var color = function(characteristic) {

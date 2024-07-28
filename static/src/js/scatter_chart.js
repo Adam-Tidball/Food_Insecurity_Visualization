@@ -84,15 +84,17 @@ svg.append("text")
 
 
 var colorMapping = {
-    "Perceived Good Health": "#00FF00",
-    "Perceived Poor Health": "#FF0000",
-    "Percieved good mental health": "#0000FF",
-    "Percieved poor mental health": "#FFFF00",
-    "Obese": "#FF00FF",
-    "Diabetes": "#00FFFF",
-    "High blood pressure": "#FFA500",
-    "Mood disorder": "#800080"
+    "Perceived Good Health": "#B97842",
+    "Perceived Poor Health": "#40476D",
+    "Percieved good mental health": "#4FB477",
+    "Percieved poor mental health": "#33A1FD",
+    "Obese": "#FF4E4B",
+    "Diabetes": "#B65DF7",
+    "High blood pressure": "#750D37",
+    "Mood disorder": "#FCDC4D"
 };
+
+// 56a3a6-2d4739-e4572e-6b0f1a-f3a712
 
 var color = function(characteristic) {
     return colorMapping[characteristic] || "#000000"; // Default to black if not found
@@ -255,7 +257,9 @@ function updateLineChart(newData) {
                                 .style("stroke-width", "0.5px") // Outline width
                                 .style("paint-order", "stroke") // Ensure stroke is painted before fill
                                 .style("fill", d => color(d.characteristic))
-                                .style("display", "none");
+                                .style("display", "none")
+                                .style("width", 20)
+                                .style("word-wrap", "break-word");
 
 
                         province_group.append("line")
@@ -363,7 +367,7 @@ function updateLineChart(newData) {
                             {
                                 return color(d.characteristic);    
                             })
-                            .style("display", "none");
+                            .style("display", "none")
 
                         province_group.append("line")
                             .data(finalFilteredData)//test

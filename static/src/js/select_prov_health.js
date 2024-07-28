@@ -16,22 +16,22 @@
         });
 
         // Update button colors based on selected characteristics
-        var colorMappingCheckboxs = {
-            "Perceived Good Health": "#00FF00",
-            "Perceived Poor Health": "#FF0000",
-            "Percieved good mental health": "#0000FF",
-            "Percieved poor mental health": "#FFFF00",
-            "Obese": "#FF00FF",
-            "Diabetes": "#00FFFF",
-            "High blood pressure": "#FFA500",
-            "Mood disorder": "#800080"
+        var colorMapping = {
+            "Perceived Good Health": "#B97842",
+            "Perceived Poor Health": "#40476D",
+            "Percieved good mental health": "#4FB477",
+            "Percieved poor mental health": "#33A1FD",
+            "Obese": "#FF4E4B",
+            "Diabetes": "#B65DF7",
+            "High blood pressure": "#750D37",
+            "Mood disorder": "#FCDC4D"
         };
 
         document.querySelectorAll('.characteristic-checkbox').forEach(function(checkbox) {
             if (checkbox.checked) {
 
                 checkbox.style.border = '3px solid'; // Highlight selected buttons
-                checkbox.style.borderColor = colorMappingCheckboxs[checkbox.value] || '#000000'; // Set color based on value
+                checkbox.style.borderColor = colorMapping[checkbox.value] || '#000000'; // Set color based on value
                 
             } else {
                 checkbox.style.border = ''; // Reset to default color
